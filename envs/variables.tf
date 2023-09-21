@@ -25,3 +25,8 @@ locals {
   app_zone_fqdn = "kyosutech.com"
   sushi_backend_fqdn = "api.sushi.kyosutech.com"
 }
+
+// Github Repository
+locals {
+  sushi_order_system_api_github_repo = "kyosu-1/sushi-order-system"
+}

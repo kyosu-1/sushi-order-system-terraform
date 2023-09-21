@@ -88,3 +88,13 @@ module "apprunner" {
   custom_domain_name = local.sushi_backend_fqdn
   hosted_zone_id     = data.aws_route53_zone.zone.id
 }
+
+module "sushi_order_system_github_actions" {
+  source      = "../modules/githubactions"
+  app_name    = local.app_name
+  github_repo = local.sushi_order_system_api_github_repo
+
+  ecr_repository_arn        = module.sushi_order_system_api_ecr.repo.arn
+  apprunner_service_arn     = module.apprunner.service.arn
+  apprunner_access_role_arn = module.apprunner.access_role.arn
+}
