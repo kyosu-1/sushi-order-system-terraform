@@ -37,3 +37,26 @@ module "sg" {
   db_port    = local.db_port
   vpc_id     = module.vpc.vpc.id
 }
+
+module "bastion" {
+  source = "../modules/bastion"
+
+  app_name = local.app_name
+
+  bastion_ami_id    = local.bastion_ami_id
+  bastion_sg_id     = module.sg.bastion_sg.id
+  bastion_subnet_id = module.vpc.bastion_subnet.id
+}
+
+module "db" {
+  source = "../modules/rds"
+
+  app_name    = local.app_name
+  db_name     = local.db_name
+  db_port     = local.db_port
+  db_username = local.db_username
+  db_password = local.db_password
+
+  db_sg_id      = module.sg.db_sg.id
+  db_subnet_ids = [for k, subnet in module.vpc.db_subnets : subnet.id]
+}
