@@ -60,3 +60,31 @@ module "db" {
   db_sg_id      = module.sg.db_sg.id
   db_subnet_ids = [for k, subnet in module.vpc.db_subnets : subnet.id]
 }
+
+data "aws_route53_zone" "zone" {
+  name         = local.app_zone_fqdn
+  private_zone = false
+}
+
+module "apprunner" {
+  source = "../modules/apprunner"
+
+  app_name = local.app_name
+
+  env = {
+    DB_USER             = local.db_username
+    DB_PASSWORD         = local.db_password
+    DB_PORT             = local.db_port
+    DB_HOST             = module.db.db_host
+    DB_DATABASE         = local.db_name
+  }
+
+  app_container_port = local.app_container_port
+  ecr_repository_url = module.sushi_order_system_api_ecr.repo.repository_url
+
+  subnet_ids      = [for k, subnet in module.vpc.apprunner_subnets : subnet.id]
+  apprunner_sg_id = module.sg.apprunner_sg.id
+
+  custom_domain_name = local.sushi_backend_fqdn
+  hosted_zone_id     = data.aws_route53_zone.zone.id
+}
