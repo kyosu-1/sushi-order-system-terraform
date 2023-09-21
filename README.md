@@ -46,7 +46,7 @@ tfstate 管理用の backend S3 バケットは terraform 管理化には置き�
 #### 1. `~/.ssh/config` への追記
 
 ```
-Host sushi-bastion
+Host sushi-order-system-bastion
     User ec2-user
     ProxyCommand sh -c "aws ssm start-session --target $(aws ec2 describe-instances --filters 'Name=tag:Name,Values=%h' Name=instance-state-name,Values=running --query "Reservations[0].Instances[0].InstanceId" --output=text) --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"
 ```
