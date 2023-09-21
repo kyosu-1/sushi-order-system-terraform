@@ -1,6 +1,6 @@
 # IAM policy for github actions
 resource "aws_iam_policy" "github_actions" {
-  name = "${var.app_name}_github_actions"
+  name = "${var.app_name}-github-actions"
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -57,7 +57,7 @@ data "aws_iam_openid_connect_provider" "github" {
 
 # IAM role for github actions
 resource "aws_iam_role" "github_actions" {
-  name = "${var.app_name}_github_actions"
+  name = "${var.app_name}-github-actions"
 
   assume_role_policy = jsonencode({
     Version = "2008-10-17",
