@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "sushi-order-system-state"
-    region         = "ap-northeast-1"
-    key            = "prod.tfstate"
-    profile        = "sushi-order-system"
+    bucket  = "sushi-order-system-state"
+    region  = "ap-northeast-1"
+    key     = "prod.tfstate"
+    profile = "sushi-order-system"
   }
   required_providers {
     aws = {

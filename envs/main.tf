@@ -1,7 +1,7 @@
 module "sushi_order_system_api_ecr" {
-    source = "../modules/ecr"
-    
-    app_name       = local.app_name
+  source = "../modules/ecr"
+
+  app_name = local.app_name
 }
 
 module "vpc" {
@@ -34,8 +34,8 @@ module "sg" {
 
   app_name = local.app_name
 
-  db_port    = local.db_port
-  vpc_id     = module.vpc.vpc.id
+  db_port = local.db_port
+  vpc_id  = module.vpc.vpc.id
 }
 
 module "bastion" {
@@ -72,11 +72,11 @@ module "apprunner" {
   app_name = local.app_name
 
   env = {
-    DB_USER             = local.db_username
-    DB_PASSWORD         = local.db_password
-    DB_PORT             = local.db_port
-    DB_HOST             = module.db.db_host
-    DB_DATABASE         = local.db_name
+    DB_USER     = local.db_username
+    DB_PASSWORD = local.db_password
+    DB_PORT     = local.db_port
+    DB_HOST     = module.db.db_host
+    DB_DATABASE = local.db_name
   }
 
   app_container_port = local.app_container_port
@@ -87,4 +87,14 @@ module "apprunner" {
 
   custom_domain_name = local.sushi_backend_fqdn
   hosted_zone_id     = data.aws_route53_zone.zone.id
+}
+
+module "sushi_order_system_github_actions" {
+  source      = "../modules/githubactions"
+  app_name    = local.app_name
+  github_repo = local.sushi_order_system_api_github_repo
+
+  ecr_repository_arn        = module.sushi_order_system_api_ecr.repo.arn
+  apprunner_service_arn     = module.apprunner.service.arn
+  apprunner_access_role_arn = module.apprunner.access_role.arn
 }

@@ -7,11 +7,11 @@ resource "aws_apprunner_service" "service" {
       image_configuration {
         port = var.app_container_port
         runtime_environment_variables = {
-          DB_USER             = var.env.DB_USER
-          DB_PASSWORD         = var.env.DB_PASSWORD
-          DB_PORT             = var.env.DB_PORT
-          DB_HOST             = var.env.DB_HOST
-          DB_DATABASE         = var.env.DB_DATABASE
+          DB_USER     = var.env.DB_USER
+          DB_PASSWORD = var.env.DB_PASSWORD
+          DB_PORT     = var.env.DB_PORT
+          DB_HOST     = var.env.DB_HOST
+          DB_DATABASE = var.env.DB_DATABASE
         }
       }
 
