@@ -1,4 +1,4 @@
-module "sushi-order-system-api-ecr" {
+module "sushi_order_system_api_ecr" {
     source = "../modules/ecr"
     
     app_name       = local.app_name

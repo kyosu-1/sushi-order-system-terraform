@@ -19,3 +19,9 @@ locals {
 locals {
   app_container_port = 8080 // アプリケーションコンテナのポート番号
 }
+
+// ドメイン名
+locals {
+  app_zone_fqdn = "kyosutech.com"
+  sushi_backend_fqdn = "api.sushi.kyosutech.com"
+}
