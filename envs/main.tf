@@ -1,7 +1,7 @@
 module "sushi_order_system_api_ecr" {
-    source = "../modules/ecr"
-    
-    app_name       = local.app_name
+  source = "../modules/ecr"
+
+  app_name = local.app_name
 }
 
 module "vpc" {
@@ -34,8 +34,8 @@ module "sg" {
 
   app_name = local.app_name
 
-  db_port    = local.db_port
-  vpc_id     = module.vpc.vpc.id
+  db_port = local.db_port
+  vpc_id  = module.vpc.vpc.id
 }
 
 module "bastion" {
@@ -72,11 +72,11 @@ module "apprunner" {
   app_name = local.app_name
 
   env = {
-    DB_USER             = local.db_username
-    DB_PASSWORD         = local.db_password
-    DB_PORT             = local.db_port
-    DB_HOST             = module.db.db_host
-    DB_DATABASE         = local.db_name
+    DB_USER     = local.db_username
+    DB_PASSWORD = local.db_password
+    DB_PORT     = local.db_port
+    DB_HOST     = module.db.db_host
+    DB_DATABASE = local.db_name
   }
 
   app_container_port = local.app_container_port

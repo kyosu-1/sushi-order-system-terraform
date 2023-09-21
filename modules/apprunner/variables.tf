@@ -7,11 +7,11 @@ variable "app_name" {
 variable "env" {
   type = map(string)
   default = {
-    DB_USER             = ""
-    DB_PASSWORD         = ""
-    DB_PORT             = ""
-    DB_HOST             = ""
-    DB_DATABASE         = ""
+    DB_USER     = ""
+    DB_PASSWORD = ""
+    DB_PORT     = ""
+    DB_HOST     = ""
+    DB_DATABASE = ""
   }
 }
 
